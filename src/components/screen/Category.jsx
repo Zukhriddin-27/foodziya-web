@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react'
-
 const Category = () => {
   const [category, setCategory] = useState([])
-
+  const { REACT_APP_BASE_URL: url } = process.env
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
-    fetch('/api/category')
+    setLoading(false)
+    fetch(`${url}/api/category`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
       .then((res) => res.json())
       .then((result) => {
+        setLoading(false)
         setCategory(result)
+        console.log(result)
       })
   }, [])
   return (

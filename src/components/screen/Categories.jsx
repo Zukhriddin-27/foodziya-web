@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 
 const Category = () => {
   const [category, setCategory] = useState([])
+  const { REACT_APP_BASE_URL: url } = process.env
 
   useEffect(() => {
-    fetch('/api/category/all')
+    fetch(`${url}/api/category/all`)
       .then((res) => res.json())
       .then((result) => {
         setCategory(result)
