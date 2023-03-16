@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react'
+import Skeleton from 'react-loading-skeleton'
 
 const Category = () => {
+  const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState([])
   const { REACT_APP_BASE_URL: url } = process.env
 
   useEffect(() => {
+    setLoading(false)
+
     fetch(`${url}/api/category/all`)
       .then((res) => res.json())
       .then((result) => {
+        setLoading(true)
+
         setCategory(result)
       })
   }, [])
@@ -32,21 +38,26 @@ const Category = () => {
             </ol>
           </nav>
           <div className='grid-container'>
-            {category.map((item) => {
-              return (
-                <div className='row    mb-4' key={item._id}>
-                  <a
-                    href={`/categories/${item.name}`}
-                    className='col text-center category__link '
-                  >
-                    <div className='category__image shadow'>
-                      <img src={item.image} alt={item.name} />
-                    </div>
-                    <div className='pt-1'>{item.name}</div>
-                  </a>
-                </div>
-              )
-            })}
+            {loading ? (
+              category?.map((item) => {
+                return (
+                  <div className='row mb-4' key={item._id}>
+                    <a
+                      href={`/categories/${item.name}`}
+                      className='col text-center category__link '
+                    >
+                      <div className='category__image shadow'>
+                        <img src={item.image} alt={item.name} />
+                      </div>
+
+                      <div className='pt-1'>{item.name}</div>
+                    </a>
+                  </div>
+                )
+              })
+            ) : (
+              <Skeleton height={110} width={229} />
+            )}
           </div>
         </>
       ) : (

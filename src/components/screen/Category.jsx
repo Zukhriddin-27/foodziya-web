@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
 const Category = () => {
+  const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState([])
   const { REACT_APP_BASE_URL: url } = process.env
-  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     setLoading(false)
     fetch(`${url}/api/category`, {
@@ -13,32 +17,34 @@ const Category = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        setLoading(false)
+        setLoading(true)
         setCategory(result)
-        console.log(result)
       })
   }, [])
   return (
-    <div>
-      {category ? (
-        <div className='row row-cols-2 row-cols-lg-6 g-2 g-lg-3 py-4'>
-          {category?.map((item) => {
-            return (
-              <div key={item._id}>
-                <a
-                  href={`/categories/${item.name}`}
-                  className='col text-center category__link'
-                >
+    <>
+      <div className='row row-cols-2 row-cols-lg-6 g-2 g-lg-3 py-4'>
+        {category?.map((item) => {
+          return (
+            <div key={item._id}>
+              <a
+                href={`/categories/${item?.name}`}
+                className='col text-center category__link'
+              >
+                {loading ? (
                   <div className='category__image shadow'>
-                    <img src={item.image} alt={item.name} loading='lazy' />
+                    <img src={item?.image} alt={item?.name} />
                   </div>
-                  <div className='pt-1'>{item.name}</div>
-                </a>
-              </div>
-            )
-          })}
-
-          <a href='/categories' className='col text-center category__link'>
+                ) : (
+                  <Skeleton height={110} width={229} />
+                )}
+                <div className='pt-1'>{item?.name}</div>
+              </a>
+            </div>
+          )
+        })}
+        <a href='/categories' className='col text-center category__link'>
+          {loading ? (
             <div className='category__image shadow'>
               <img
                 src='/assets/img/view-all.jpg'
@@ -46,13 +52,13 @@ const Category = () => {
                 loading='lazy'
               />
             </div>
-            <div className='pt-1'>Ko'proq</div>
-          </a>
-        </div>
-      ) : (
-        <p>Maxsulot topilmadi.</p>
-      )}
-    </div>
+          ) : (
+            <Skeleton height={110} width={229} />
+          )}
+          <div className='pt-1'>Ko'proq</div>
+        </a>
+      </div>
+    </>
   )
 }
 

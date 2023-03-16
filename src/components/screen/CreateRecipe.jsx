@@ -8,63 +8,64 @@ const CreateRecipe = () => {
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
   const [link, setLink] = useState('')
-  const [url, setUrl] = useState('')
+  // const [url, setUrl] = useState('')
   const [image, setImage] = useState('')
   const [ingredients, setIngredients] = useState([])
+  const { REACT_APP_BASE_URL: url } = process.env
+
   // eslint-disable-next-line
   const [submitInfo, setSubmitInfo] = useState([])
 
-  useEffect(() => {
-    if (url) {
-      fetch('/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          category: category,
-          description: description,
-          ingredients: ingredients,
-          link: link,
-          pic: url,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) {
-            alert(data.error)
-            setSubmitInfo(data)
-          } else {
-            alert('Ajoyib natija')
-            navigate('/')
-          }
-        })
-    }
-    // eslint-disable-next-line
-  }, [url])
   const recipeDetails = () => {
-    const data = new FormData()
-    data.append('file', image)
-    data.append('upload_preset', 'ufp7ie6c')
-    data.append('cloud_name', 'dus2bqcc6')
-    fetch('https://api.cloudinary.com/v1_1/dus2bqcc6/image/upload', {
+    fetch(`${url}/api/recipe`, {
       method: 'POST',
-      body: data,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        category: category,
+        description: description,
+        ingredients: ingredients,
+        link: link,
+        image: image,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          alert('Rasm joylang')
+          alert(data.error)
+          setSubmitInfo(data)
         } else {
-          setUrl(data.url)
+          alert('Ajoyib natija')
+          navigate('/')
         }
       })
-      .catch((error) => {
-        console.log(error)
-      })
+
+    // eslint-disable-next-line
   }
+  // const recipeDetails = () => {
+  //   const data = new FormData()
+  //   data.append('file', image)
+  //   data.append('upload_preset', 'ufp7ie6c')
+  //   data.append('cloud_name', 'dus2bqcc6')
+  //   fetch('https://api.cloudinary.com/v1_1/dus2bqcc6/image/upload', {
+  //     method: 'POST',
+  //     body: data,
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.error) {
+  //         alert('Rasm joylang')
+  //       } else {
+  //         setUrl(data.url)
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
   const handleAddList = () => {
     const list = [...ingredients, []]
     setIngredients(list)

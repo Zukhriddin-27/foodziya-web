@@ -7,9 +7,11 @@ const Contact = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [post, setPost] = useState('')
+  const { REACT_APP_BASE_URL: url } = process.env
+  const createPost = (e) => {
+    e.preventDefault()
 
-  const createPost = () => {
-    fetch('/api/contact', {
+    fetch(`${url}/api/contact`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -27,9 +29,7 @@ const Contact = () => {
           notify(data.error)
         } else {
           showToastMessage('Send me post succesfully')
-          setTimeout(() => {
-            navigate('/')
-          }, 1000)
+          navigate('/')
         }
       })
 

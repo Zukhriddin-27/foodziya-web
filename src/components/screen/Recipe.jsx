@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 
 const Recipe = () => {
   const [recipe, setRecipe] = useState([])
+  const { REACT_APP_BASE_URL: url } = process.env
 
   useEffect(() => {
-    fetch('/food')
+    fetch(`${url}/api/recipe`)
       .then((res) => res.json())
       .then((result) => {
         setRecipe(result)
