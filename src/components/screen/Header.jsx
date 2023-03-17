@@ -4,9 +4,9 @@ import Category from './Category'
 import '../style/header.css'
 const Header = () => {
   const [recipe, setRecipe] = useState([])
-
+  const { REACT_APP_BASE_URL: url } = process.env
   useEffect(() => {
-    fetch('/food')
+    fetch(`${url}/api/recipes`)
       .then((res) => res.json())
       .then((result) => {
         setRecipe(result)
@@ -59,7 +59,7 @@ const Header = () => {
       <section className='pb-4 pt-4'>
         <div className='d-flex mb-2 align-items-center'>
           <h2>Taomlar ro'yaxati</h2>
-          <a href='/recipe' className='ms-auto'>
+          <a href={`/recipes`} className='ms-auto'>
             Ko'proq
           </a>
         </div>
@@ -68,7 +68,7 @@ const Header = () => {
             return (
               <div className='row' key={item._id}>
                 <a
-                  href={`/recipe/${item._id}`}
+                  href={`/recipes/${item._id}`}
                   className='col text-center category_link'
                 >
                   <div className='category__image category__image--large shadow'>
@@ -101,12 +101,12 @@ const Header = () => {
               return (
                 <div className='row' key={item._id}>
                   <a
-                    href={`/recipe/${item._id}`}
+                    href={`/recipes/${item._id}`}
                     className='col text-center category_link'
                   >
                     <div className='category__image category__image--large shadow'>
                       <img
-                        src={item.image}
+                        src={item?.image}
                         alt='View All Categories'
                         loading='lazy'
                       />
@@ -134,7 +134,7 @@ const Header = () => {
               return (
                 <div className='row' key={item._id}>
                   <a
-                    href={`/recipe/${item._id}`}
+                    href={`/recipes/${item._id}`}
                     className='col text-center category_link'
                   >
                     <div className='category__image category__image--large shadow'>
@@ -167,7 +167,7 @@ const Header = () => {
               return (
                 <div className='row' key={item._id}>
                   <a
-                    href={`/recipe/${item._id}`}
+                    href={`/recipes/${item._id}`}
                     className='col text-center category_link'
                   >
                     <div className='category__image category__image--large shadow'>

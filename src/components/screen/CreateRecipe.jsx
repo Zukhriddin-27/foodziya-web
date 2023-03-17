@@ -8,7 +8,7 @@ const CreateRecipe = () => {
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
   const [link, setLink] = useState('')
-  // const [url, setUrl] = useState('')
+  const [imgUrl, setImgUrl] = useState('')
   const [image, setImage] = useState('')
   const [ingredients, setIngredients] = useState([])
   const { REACT_APP_BASE_URL: url } = process.env
@@ -16,8 +16,8 @@ const CreateRecipe = () => {
   // eslint-disable-next-line
   const [submitInfo, setSubmitInfo] = useState([])
 
-  const recipeDetails = () => {
-    fetch(`${url}/api/recipe`, {
+  useEffect(() => {
+    fetch(`${url}/api/recipes`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const CreateRecipe = () => {
         description: description,
         ingredients: ingredients,
         link: link,
-        image: image,
+        picture: imgUrl,
       }),
     })
       .then((res) => res.json())
@@ -37,6 +37,7 @@ const CreateRecipe = () => {
         if (data.error) {
           alert(data.error)
           setSubmitInfo(data)
+          console.log(data)
         } else {
           alert('Ajoyib natija')
           navigate('/')
@@ -44,28 +45,28 @@ const CreateRecipe = () => {
       })
 
     // eslint-disable-next-line
+  }, [imgUrl])
+  const recipeDetails = () => {
+    const data = new FormData()
+    data.append('file', image)
+    data.append('upload_preset', 'ufp7ie6c')
+    data.append('cloud_name', 'dus2bqcc6')
+    fetch('https://api.cloudinary.com/v1_1/dus2bqcc6/image/upload', {
+      method: 'POST',
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert('Rasm joylang')
+        } else {
+          setImgUrl(data.url)
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
-  // const recipeDetails = () => {
-  //   const data = new FormData()
-  //   data.append('file', image)
-  //   data.append('upload_preset', 'ufp7ie6c')
-  //   data.append('cloud_name', 'dus2bqcc6')
-  //   fetch('https://api.cloudinary.com/v1_1/dus2bqcc6/image/upload', {
-  //     method: 'POST',
-  //     body: data,
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.error) {
-  //         alert('Rasm joylang')
-  //       } else {
-  //         setUrl(data.url)
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
   const handleAddList = () => {
     const list = [...ingredients, []]
     setIngredients(list)

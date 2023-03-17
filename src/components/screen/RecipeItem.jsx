@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom'
 const RecipeItem = () => {
   const [recipeItem, setRecipeItem] = useState([])
   const { id } = useParams()
+  const { REACT_APP_BASE_URL: url } = process.env
   useEffect(() => {
-    fetch(`/food/${id}`, {
+    fetch(`${url}/api/recipes/${id}`, {
       headers: {
         'Content-Type': 'application/json',
       },

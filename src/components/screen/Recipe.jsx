@@ -5,10 +5,11 @@ const Recipe = () => {
   const { REACT_APP_BASE_URL: url } = process.env
 
   useEffect(() => {
-    fetch(`${url}/api/recipe`)
+    fetch(`${url}/api/recipes`)
       .then((res) => res.json())
       .then((result) => {
         setRecipe(result)
+        console.log(result)
       })
   }, [])
 
@@ -29,7 +30,7 @@ const Recipe = () => {
           </ol>
         </nav>
         <div className='grid-container'>
-          {recipe.map((item) => {
+          {recipe?.map((item) => {
             return (
               <div className='row py-4' key={item.id}>
                 <a
