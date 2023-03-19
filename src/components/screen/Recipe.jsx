@@ -39,7 +39,7 @@ const Recipe = () => {
                 >
                   <div className='category__image category__image--large shadow'>
                     <img
-                      src={item.image}
+                      src={item.picture}
                       alt='View All Categories'
                       loading='lazy'
                     />
