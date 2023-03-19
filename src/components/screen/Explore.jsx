@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import Loading from './Loading'
 
 const Explore = () => {
   const [latest, setLatest] = useState([])
+  const [loading, setLoading] = useState(false)
   const { REACT_APP_BASE_URL: url } = process.env
   useEffect(() => {
+    setLoading(true)
     fetch(`${url}/api/latest`).then((res) => {
       res.json().then((result) => {
         setLatest(result)
+        setLoading(false)
       })
     })
   }, [])
@@ -27,27 +31,31 @@ const Explore = () => {
               </li>
             </ol>
           </nav>
-          <div className='grid-container'>
-            {latest?.map((item) => {
-              return (
-                <div className='row py-4' key={item.id}>
-                  <a
-                    href={`/recipes/${item._id}`}
-                    className='col text-center category_link'
-                  >
-                    <div className='category__image category__image--large shadow'>
-                      <img
-                        src={item.picture}
-                        alt='View All Categories'
-                        loading='lazy'
-                      />
-                    </div>
-                    <div className='pt-1'>{item.name}</div>
-                  </a>
-                </div>
-              )
-            })}
-          </div>
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className='grid-container'>
+              {latest?.map((item) => {
+                return (
+                  <div className='row py-4' key={item.id}>
+                    <a
+                      href={`/recipes/${item._id}`}
+                      className='col text-center category_link'
+                    >
+                      <div className='category__image category__image--large shadow'>
+                        <img
+                          src={item.picture}
+                          alt='View All Categories'
+                          loading='lazy'
+                        />
+                      </div>
+                      <div className='pt-1'>{item.name}</div>
+                    </a>
+                  </div>
+                )
+              })}
+            </div>
+          )}
         </section>
       </div>
     </div>
