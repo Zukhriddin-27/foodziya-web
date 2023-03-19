@@ -17,8 +17,8 @@ const RecipeItem = () => {
       .then((res) => res.json())
       .then((result) => {
         setRecipeItem(result)
-        setLoading(false)
       })
+    setLoading(false)
     // eslint-disable-next-line
   }, [])
   return (

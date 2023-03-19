@@ -12,8 +12,9 @@ const Random = () => {
       .then((res) => res.json())
       .then((result) => {
         setRandom(result)
-        setLoading(false)
       })
+    setLoading(false)
+    //eslint-disable-next-line
   }, [])
 
   return (

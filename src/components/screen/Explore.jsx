@@ -10,9 +10,10 @@ const Explore = () => {
     fetch(`${url}/api/latest`).then((res) => {
       res.json().then((result) => {
         setLatest(result)
-        setLoading(false)
       })
     })
+    setLoading(false)
+    //eslint-disable-next-line
   }, [])
   return (
     <div>

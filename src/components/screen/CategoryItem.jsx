@@ -13,8 +13,8 @@ const CategoryItem = () => {
       .then((res) => res.json())
       .then((result) => {
         setCategoryItem(result)
-        setLoading(false)
       })
+    setLoading(false)
     //eslint-disable-next-line
   }, [])
   return (
