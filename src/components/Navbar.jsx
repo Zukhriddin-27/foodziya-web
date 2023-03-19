@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 const Navbar = () => {
+  const { REACT_APP_BASE_URL: url } = process.env
+
   const [searchList, setSearchList] = useState('')
   const [searchArray, setSearchArray] = useState([])
 
   const searchFood = (query) => {
     setSearchList(query)
-    fetch('/search', {
+    fetch(`${url}/api/search`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -14,7 +16,6 @@ const Navbar = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result)
         setSearchArray(result)
       })
 
@@ -99,15 +100,18 @@ const Navbar = () => {
                   </div>
                   {searchArray ? (
                     <div className='modal-body'>
-                      {searchArray.map((item) => {
+                      {searchArray?.map((item) => {
                         return (
-                          <ul className='list-group list-group-flush'>
-                            <a href={`/recipe/${item._id}`}>
+                          <ul
+                            className='list-group list-group-flush'
+                            key={item._id}
+                          >
+                            <a href={`/recipes/${item._id}`}>
                               <li className='list-group-item d-flex justify-content-between px-4 align-items-center'>
-                                <h3>{item.name}</h3>
+                                <h6>{item.name}</h6>
                                 {/* eslint-disable-next-line */}
                                 <img
-                                  src={item.image}
+                                  src={item.picture}
                                   className='globalRoundProfile'
                                 />
                               </li>

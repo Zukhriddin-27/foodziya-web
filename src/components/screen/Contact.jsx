@@ -24,7 +24,6 @@ const Contact = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         if (data.error) {
           notify(data.error)
         } else {

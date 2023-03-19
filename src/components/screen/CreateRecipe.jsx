@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const CreateRecipe = () => {
   const navigate = useNavigate()
   const [name, setName] = useState('')
@@ -16,7 +17,31 @@ const CreateRecipe = () => {
   // eslint-disable-next-line
   const [submitInfo, setSubmitInfo] = useState([])
 
-  useEffect(() => {
+  const recipeDetails = () => {
+    const data = new FormData()
+    data.append('file', image)
+    data.append('upload_preset', 'ufp7ie6c')
+    data.append('cloud_name', 'dus2bqcc6')
+    fetch('https://api.cloudinary.com/v1_1/dus2bqcc6/image/upload', {
+      method: 'POST',
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert('Rasm joylang')
+        } else {
+          setImgUrl(data.url)
+          if (data.url) {
+            createRecipe()
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  const createRecipe = () => {
     fetch(`${url}/api/recipes`, {
       method: 'POST',
       headers: {
@@ -35,37 +60,19 @@ const CreateRecipe = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          alert(data.error)
+          notify(data.error)
           setSubmitInfo(data)
-          console.log(data)
         } else {
-          alert('Ajoyib natija')
+          showToastMessage('saved')
           navigate('/')
         }
       })
-
-    // eslint-disable-next-line
-  }, [imgUrl])
-  const recipeDetails = () => {
-    const data = new FormData()
-    data.append('file', image)
-    data.append('upload_preset', 'ufp7ie6c')
-    data.append('cloud_name', 'dus2bqcc6')
-    fetch('https://api.cloudinary.com/v1_1/dus2bqcc6/image/upload', {
-      method: 'POST',
-      body: data,
+  }
+  const notify = (e) => toast.error(e)
+  const showToastMessage = (e) => {
+    toast.success(e, {
+      position: toast.POSITION.TOP_RIGHT,
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          alert('Rasm joylang')
-        } else {
-          setImgUrl(data.url)
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-      })
   }
   const handleAddList = () => {
     const list = [...ingredients, []]
@@ -79,6 +86,7 @@ const CreateRecipe = () => {
 
   return (
     <div>
+      <ToastContainer position='top-right' autoClose={1000} />
       <nav aria-label='breadcrumb'>
         <ol className='breadcrumb'>
           <li className='breadcrumb-item'>

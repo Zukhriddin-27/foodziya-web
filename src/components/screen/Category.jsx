@@ -6,7 +6,6 @@ const Category = () => {
   const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState([])
   const { REACT_APP_BASE_URL: url } = process.env
-  console.log(url)
   useEffect(() => {
     setLoading(false)
     fetch(`${url}/api/category`, {

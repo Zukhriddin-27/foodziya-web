@@ -15,7 +15,6 @@ const Header = () => {
 
   return (
     <div className='container'>
-      {' '}
       <div className='row flex-lg-row-reverse align-items-center g-5 py-4 mb-4'>
         <div className='col-12 col-lg-6'>
           <img
@@ -73,7 +72,7 @@ const Header = () => {
                 >
                   <div className='category__image category__image--large shadow'>
                     <img
-                      src={item.image}
+                      src={item.picture}
                       alt='View All Categories'
                       loading='lazy'
                     />
@@ -106,7 +105,7 @@ const Header = () => {
                   >
                     <div className='category__image category__image--large shadow'>
                       <img
-                        src={item?.image}
+                        src={item?.picture}
                         alt='View All Categories'
                         loading='lazy'
                       />
@@ -139,7 +138,7 @@ const Header = () => {
                   >
                     <div className='category__image category__image--large shadow'>
                       <img
-                        src={item.image}
+                        src={item.picture}
                         alt='View All Categories'
                         loading='lazy'
                       />
@@ -172,7 +171,7 @@ const Header = () => {
                   >
                     <div className='category__image category__image--large shadow'>
                       <img
-                        src={item.image}
+                        src={item.picture}
                         alt='View All Categories'
                         loading='lazy'
                       />

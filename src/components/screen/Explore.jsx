@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 
 const Explore = () => {
   const [latest, setLatest] = useState([])
-
+  const { REACT_APP_BASE_URL: url } = process.env
   useEffect(() => {
-    fetch('/latest').then((res) => {
+    fetch(`${url}/api/latest`).then((res) => {
       res.json().then((result) => {
         setLatest(result)
       })
@@ -28,16 +28,16 @@ const Explore = () => {
             </ol>
           </nav>
           <div className='grid-container'>
-            {latest.map((item) => {
+            {latest?.map((item) => {
               return (
                 <div className='row py-4' key={item.id}>
                   <a
-                    href={`/recipe/${item._id}`}
+                    href={`/recipes/${item._id}`}
                     className='col text-center category_link'
                   >
                     <div className='category__image category__image--large shadow'>
                       <img
-                        src={item.image}
+                        src={item.picture}
                         alt='View All Categories'
                         loading='lazy'
                       />

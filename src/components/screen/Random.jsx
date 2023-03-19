@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
 const Random = () => {
-  const [random, setRandom] = useState([])
-
+  const [random, setRandom] = useState({})
+  const { REACT_APP_BASE_URL: url } = process.env
   useEffect(() => {
-    fetch('/random')
+    fetch(`${url}/api/random`)
       .then((res) => res.json())
       .then((result) => {
         setRandom(result)
@@ -27,7 +27,7 @@ const Random = () => {
       <div className='row g-2 '>
         <div className='col-12 col-md-4  px-2 '>
           <img
-            src={random.image}
+            src={random.picture}
             className='img-fluid sticky-top'
             alt={random.name}
           />

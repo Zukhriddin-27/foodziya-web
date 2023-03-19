@@ -36,7 +36,7 @@ const RecipeItem = () => {
       <div className='row g-2 '>
         <div className='col-12 col-md-4  px-2 '>
           <img
-            src={recipeItem.image}
+            src={recipeItem.picture}
             className='img-fluid sticky-top'
             alt={recipeItem.name}
           />

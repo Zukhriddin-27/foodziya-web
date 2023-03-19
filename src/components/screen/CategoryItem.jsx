@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom'
 const CategoryItem = () => {
   const [categoryItem, setCategoryItem] = useState([])
   const { id } = useParams()
-
+  const { REACT_APP_BASE_URL: url } = process.env
   useEffect(() => {
-    fetch(`/api/category/${id}`)
+    fetch(`${url}/api/category/${id}`)
       .then((res) => res.json())
       .then((result) => {
         setCategoryItem(result)
@@ -14,7 +14,7 @@ const CategoryItem = () => {
   }, [])
   return (
     <div className='container'>
-      {categoryItem ? (
+      {categoryItem.length > 0 ? (
         <div className='grid-container'>
           {categoryItem
             // .filter((sort) => sort.category === categoryName)
@@ -22,11 +22,11 @@ const CategoryItem = () => {
               return (
                 <div className='row py-4' key={item._id}>
                   <a
-                    href={`/recipe/${item._id}`}
+                    href={`/recipes/${item._id}`}
                     className='col text-center category__link'
                   >
                     <div className='category__image category__image--large shadow'>
-                      <img src={item.image} alt='' loading='lazy' />
+                      <img src={item.picture} alt='' loading='lazy' />
                     </div>
                     <div className='pt-1'>{item.name}</div>
                   </a>
