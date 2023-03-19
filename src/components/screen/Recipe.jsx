@@ -34,7 +34,7 @@ const Recipe = () => {
             return (
               <div className='row py-4' key={item.id}>
                 <a
-                  href={`/recipe/${item._id}`}
+                  href={`/recipes/${item._id}`}
                   className='col text-center category_link'
                 >
                   <div className='category__image category__image--large shadow'>
