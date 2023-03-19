@@ -12,9 +12,11 @@ const CategoryItem = () => {
     fetch(`${url}/api/category/${id}`)
       .then((res) => res.json())
       .then((result) => {
+        if (result) {
+          setLoading(false)
+        }
         setCategoryItem(result)
       })
-    setLoading(false)
     //eslint-disable-next-line
   }, [])
   return (

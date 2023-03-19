@@ -11,9 +11,12 @@ const Random = () => {
     fetch(`${url}/api/random`)
       .then((res) => res.json())
       .then((result) => {
+        if (result) {
+          setLoading(false)
+        }
         setRandom(result)
       })
-    setLoading(false)
+
     //eslint-disable-next-line
   }, [])
 

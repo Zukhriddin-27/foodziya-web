@@ -16,7 +16,9 @@ const Category = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        setLoading(true)
+        if (result) {
+          setLoading(true)
+        }
         setCategory(result)
       })
   }, [])
