@@ -44,7 +44,7 @@ a {
 .grid-container {
   display: inline-grid;
   column-gap: 30px;
-  grid-template-columns: 346px 346px 346px 346px;
+  grid-template-columns: auto auto auto auto;
 }
 .list-group-item {
   background: rgb(224, 225, 225);
@@ -80,68 +80,50 @@ a {
   display: flex;
   flex-direction: column;
 } */
-@media only screen and (max-width: 1474px) {
-  .grid-container {
-    grid-template-columns: 346px 346px 346px;
-  }
+
+iframe {
+  width: 560px;
+  height: 315px;
 }
 @media only screen and (max-width: 1474px) {
   .grid-container {
-    grid-template-columns: 336px 336px 336px;
+    grid-template-columns: auto auto auto;
   }
 }
-@media only screen and (max-width: 1070px) {
+
+@media only screen and (max-width: 1336px) {
   .grid-container {
-    grid-template-columns: 366px 366px;
+    grid-template-columns: auto auto auto;
   }
 }
-@media only screen and (max-width: 884px) {
+@media only screen and (max-width: 992px) {
   .grid-container {
-    grid-template-columns: 398px 398px;
+    margin: auto;
+    grid-template-columns: auto auto;
+  }
+  iframe {
+    width: 100%;
+    height: 300px;
   }
 }
-@media only screen and (max-width: 834px) {
-  .grid-container {
-    grid-template-columns: 374px 374px;
-  }
-}
-@media only screen and (max-width: 800px) {
-  .grid-container {
-    grid-template-columns: 360px 360px;
-  }
-}
+
 @media only screen and (max-width: 768px) {
   .grid-container {
     grid-template-columns: 338px 338px;
   }
-}
-@media only screen and (max-width: 428px) {
-  .grid-container {
-    grid-template-columns: 380px;
+  iframe {
+    width: 100%;
+    height: 300px;
   }
 }
-@media only screen and (max-width: 414px) {
+@media only screen and (max-width: 576px) {
   .grid-container {
-    grid-template-columns: 360px;
+    display: block;
+    margin: auto;
+    grid-template-columns: 328px;
   }
-}
-@media only screen and (max-width: 390px) {
-  .grid-container {
-    grid-template-columns: 340px;
-  }
-}
-@media only screen and (max-width: 375px) {
-  .grid-container {
-    grid-template-columns: 320px;
-  }
-}
-@media only screen and (max-width: 360px) {
-  .grid-container {
-    grid-template-columns: 310px;
-  }
-}
-@media only screen and (max-width: 320px) {
-  .grid-container {
-    grid-template-columns: 270px;
+  iframe {
+    width: 328px;
+    height: auto;
   }
 }

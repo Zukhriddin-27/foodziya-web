@@ -21,6 +21,7 @@ const Category = () => {
         }
         setCategory(result)
       })
+    // eslint-disable-next-line
   }, [])
   return (
     <>

@@ -82,8 +82,6 @@ const RecipeItem = () => {
             <div className='row pt-4'>
               <div className='col-12'>
                 <iframe
-                  width='560'
-                  height='315'
                   src={
                     recipeItem.link
                       ? `https://www.youtube.com/embed/${recipeItem.link.slice(
